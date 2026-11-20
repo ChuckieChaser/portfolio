@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
 
+const DEFAULT_ROOT_MARGIN = '-20% 0px -45% 0px';
+const DEFAULT_THRESHOLD = [0, 0.1, 0.25, 0.5, 0.75, 1];
+const DEFAULT_BOTTOM_TOLERANCE = 4;
+
 export const useActiveSection = (sectionIds, options = {}) => {
     const [activeSectionId, setActiveSectionId] = useState(sectionIds[0] ?? '');
 
-    const rootMargin = options.rootMargin ?? '-20% 0px -45% 0px';
-    const threshold = options.threshold ?? [0, 0.1, 0.25, 0.5, 0.75, 1];
-    const bottomTolerance = options.bottomTolerance ?? 4;
+    const rootMargin = options.rootMargin ?? DEFAULT_ROOT_MARGIN;
+    const customThreshold = options.threshold;
+    const bottomTolerance = options.bottomTolerance ?? DEFAULT_BOTTOM_TOLERANCE;
 
     useEffect(() => {
         if (!Array.isArray(sectionIds) || sectionIds.length === 0) {
             return undefined;
         }
+
+        const threshold = customThreshold ?? DEFAULT_THRESHOLD;
 
         const sectionElements = sectionIds.map((sectionId) => document.getElementById(sectionId)).filter(Boolean);
 
@@ -63,7 +69,7 @@ export const useActiveSection = (sectionIds, options = {}) => {
             observer.disconnect();
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [sectionIds, rootMargin, threshold, bottomTolerance]);
+    }, [sectionIds, rootMargin, customThreshold, bottomTolerance]);
 
     return {
         activeSectionId,
