@@ -1,0 +1,25 @@
+:root {
+    --color-background: #f8f7f3;
+    --color-surface: #ffffff;
+    --color-border: #d7d8ce;
+    --color-text: #252622;
+    --color-muted: #73756d;
+    --color-accent: #a6402c;
+
+    --font-wordmark: 'Climate Crisis', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    --sizing-gutter: 1rem;
+    --sizing-gutter-reduction: 0rem;
+
+    @media (min-width: 48rem) {
+        --sizing-gutter: 7.5rem;
+        --sizing-gutter-reduction: 3.75rem;
+    }
+
+    @media (min-width: 64rem) {
+        --sizing-gutter: 15rem;
+        --sizing-gutter-reduction: 7.5rem;
+    }
+}
