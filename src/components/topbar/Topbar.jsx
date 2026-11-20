@@ -7,7 +7,7 @@ export const TopBar = () => {
     return (
         <header className="topbar">
             <div className="topbar__wordmark">
-                <a href="#hero">AVECILLA</a>
+                <a href="#home">AVECILLA</a>
             </div>
 
             <div className="topbar__action">
