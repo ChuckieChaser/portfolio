@@ -1,0 +1,40 @@
+.about {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 5rem;
+}
+
+.about__me p {
+    color: var(--color-muted);
+}
+
+.about__passion-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    width: 100%;
+
+    padding: 1rem 0.5rem;
+
+    border-top: 2px solid var(--color-border);
+    transition: 0.3s ease;
+
+    &:last-child {
+        border-bottom: 2px solid var(--color-border);
+    }
+}
+
+.about__passion-item span {
+    color: var(--color-accent);
+
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.about__passion-item p {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+}
