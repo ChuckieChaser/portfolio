@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useActiveSection } from '../../hooks/useActiveSection.js';
 import './Navigation.css';
 
 const NAVIGATION_ITEMS = [
@@ -9,17 +9,19 @@ const NAVIGATION_ITEMS = [
     { id: 'contact', label: 'CONTACT', href: '#contact' },
 ];
 
-export const Navigation = () => {
-    const [activeId, setActiveId] = useState('home');
+const SECTION_IDS = NAVIGATION_ITEMS.map((item) => item.id);
 
-    const toggleActiveId = (id) => {
-        setActiveId(id);
+export const Navigation = () => {
+    const { activeSectionId, setActiveSectionId } = useActiveSection(SECTION_IDS);
+
+    const handleNavigationClick = (sectionId) => {
+        setActiveSectionId(sectionId);
     };
 
     return (
         <nav className="navigation">
             {NAVIGATION_ITEMS.map((item) => (
-                <a className={activeId === item.id ? '--active' : ''} key={item.id} href={item.href} onClick={() => toggleActiveId(item.id)}>
+                <a className={activeSectionId === item.id ? '--active' : ''} key={item.id} href={item.href} onClick={() => handleNavigationClick(item.id)}>
                     {item.label}
                 </a>
             ))}
