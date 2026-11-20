@@ -1,0 +1,35 @@
+.navigation {
+    position: fixed;
+    top: 50%;
+    left: max(1rem, var(--sizing-gutter) - var(--sizing-gutter-reduction));
+
+    z-index: 500;
+
+    transform: translate(-50%, -50%) rotate(90deg);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    width: max-content;
+}
+
+.navigation a {
+    color: var(--color-muted);
+
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--color-border);
+
+    transition: all 0.3s ease;
+
+    &.--active {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+    }
+
+    &:hover:not(.--active) {
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+    }
+}

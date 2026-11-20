@@ -1,0 +1,62 @@
+.topbar {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+
+    padding: 1rem var(--sizing-gutter);
+}
+
+.topbar__wordmark {
+    font-family: var(--font-wordmark);
+    font-size: 2rem;
+}
+
+.topbar__action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.topbar__action-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.topbar__action-link a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: var(--color-accent);
+    }
+
+    &:hover span {
+        max-width: 10rem;
+    }
+}
+
+.topbar__action-link a span {
+    overflow: hidden;
+
+    max-width: 0;
+
+    white-space: nowrap;
+    transition:
+        max-width 0.6s ease-in-out,
+        color 0.3s ease;
+}
