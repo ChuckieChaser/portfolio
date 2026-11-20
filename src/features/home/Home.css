@@ -1,0 +1,23 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.home__description p {
+    color: var(--color-muted);
+    width: 60%;
+}
+
+.home__action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home__action > span {
+    color: var(--color-muted);
+}
