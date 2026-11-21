@@ -2,6 +2,8 @@ import { Section } from '../../components/section/Section.jsx';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '../../components/animation/ScrollReveal.jsx';
 import './Contact.css';
 
+const CV_PATH = `${import.meta.env.BASE_URL}cv_avecilla.pdf`;
+
 const LINKS = [
     {
         id: 'explore',
@@ -18,7 +20,7 @@ const LINKS = [
         items: [
             { id: 'github', name: 'GitHub', link: 'https://github.com/ChuckieChaser' },
             { id: 'linkedin', name: 'LinkedIn', link: 'https://www.linkedin.com/in/carl-ruselle-avecilla-3282692a2' },
-            { id: 'vitae', name: 'Vitae', link: '/cv_avecilla.pdf', download: 'cv_avecilla.pdf' },
+            { id: 'vitae', name: 'Vitae', link: CV_PATH, download: 'cv_avecilla.pdf' },
         ],
     },
 ];

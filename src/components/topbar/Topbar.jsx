@@ -3,6 +3,8 @@ import { Button } from '../button/Button.jsx';
 
 import './Topbar.css';
 
+const CV_PATH = `${import.meta.env.BASE_URL}cv_avecilla.pdf`;
+
 export const TopBar = () => {
     return (
         <header className="topbar">
@@ -20,7 +22,7 @@ export const TopBar = () => {
                         <Icon id="linkedin-icon" />
                         <span>LinkedIn</span>
                     </a>
-                    <a href="/cv_avecilla.pdf" download="cv_avecilla.pdf" target="_blank" rel="noopener noreferrer">
+                    <a href={CV_PATH} download="cv_avecilla.pdf">
                         <Icon id="cv-icon" />
                         <span>Vitae</span>
                     </a>
