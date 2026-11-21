@@ -32,16 +32,32 @@
         border-bottom: 2px solid var(--color-border);
     }
 
-    &:hover {
+    &.--selected {
         background-color: var(--color-border);
-
-        span:not(:last-child) {
-            color: var(--color-accent);
-        }
     }
 }
 
-.project__catalog-item > span {
+.project__details-trigger {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+
+    color: inherit;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.project__details-trigger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+.project__details-trigger > span {
     color: var(--color-muted);
 
     font-family: var(--font-mono);

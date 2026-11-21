@@ -19,8 +19,60 @@ html {
 }
 
 body {
+    position: relative;
+    isolation: isolate;
+
     overflow-x: hidden;
     min-height: 100dvh;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse 32rem 24rem at 82% 8%, rgba(166, 64, 44, 0.07), transparent 100%),
+        radial-gradient(ellipse 28rem 24rem at 12% 88%, rgba(166, 64, 44, 0.025), transparent 100%);
+}
+
+.background__grid {
+    position: absolute;
+    top: 0;
+    right: var(--sizing-gutter);
+
+    width: min(28rem, 42vw);
+    height: min(30rem, 55vh);
+
+    background-image:
+        linear-gradient(to right, rgba(115, 117, 109, 0.14) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(115, 117, 109, 0.14) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.background::before,
+.background::after {
+    position: absolute;
+    inset-block: 0;
+
+    width: 1px;
+
+    background-color: var(--color-border);
+    content: '';
+    opacity: 0.4;
+}
+
+.background::before {
+    left: max(0.25rem, calc(var(--sizing-gutter) - 1rem));
+}
+
+.background::after {
+    right: max(0.25rem, calc(var(--sizing-gutter) - 1rem));
 }
 
 h1,
@@ -48,4 +100,8 @@ svg {
 
 .content {
     padding-inline: var(--sizing-gutter);
+}
+
+.section[id] {
+    scroll-margin-top: 5.5rem;
 }

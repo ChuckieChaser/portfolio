@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 export const usePreview = () => {
-    const [activePreview, setActivePreview] = useState(null);
+    const [hoveredPreview, setHoveredPreview] = useState(null);
+    const [selectedPreview, setSelectedPreview] = useState(null);
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 9 });
 
     const handlePreviewSelect = (event, project) => {
@@ -9,7 +10,7 @@ export const usePreview = () => {
             setCursorPosition({ x: event.clientX, y: event.clientY });
         }
 
-        setActivePreview(project);
+        setHoveredPreview(project);
     };
 
     const handlePreviewMovement = (event) => {
@@ -17,8 +18,32 @@ export const usePreview = () => {
     };
 
     const handlePreviewClear = () => {
-        setActivePreview(null);
+        setHoveredPreview(null);
     };
 
-    return { activePreview, cursorPosition, handlePreviewSelect, handlePreviewMovement, handlePreviewClear };
+    const handlePreviewToggle = (project, event) => {
+        const isTouchInput = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+        const isKeyboardInput = event.detail === 0;
+
+        if (!isTouchInput && !isKeyboardInput) {
+            return;
+        }
+
+        setSelectedPreview((currentPreview) => (currentPreview?.id === project.id ? null : project));
+    };
+
+    const handlePreviewClose = () => {
+        setSelectedPreview(null);
+    };
+
+    return {
+        activePreview: selectedPreview ?? hoveredPreview,
+        selectedPreview,
+        cursorPosition,
+        handlePreviewSelect,
+        handlePreviewMovement,
+        handlePreviewClear,
+        handlePreviewToggle,
+        handlePreviewClose,
+    };
 };

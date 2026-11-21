@@ -7,6 +7,7 @@ Personal developer portfolio built with React and Vite, showcasing projects, fro
 ## Tech Stack
 
 - **Framework / UI:** React
+- **Animation:** Motion
 - **Build Tool:** Vite
 - **Styling:** CSS (Grid, responsive layout, fluid typography)
 - **Deployment:** GitHub Actions & GitHub Pages

@@ -12,14 +12,4 @@
 
     --sizing-gutter: 1rem;
     --sizing-gutter-reduction: 0rem;
-
-    @media (min-width: 48rem) {
-        --sizing-gutter: 7.5rem;
-        --sizing-gutter-reduction: 3.75rem;
-    }
-
-    @media (min-width: 64rem) {
-        --sizing-gutter: 15rem;
-        --sizing-gutter-reduction: 7.5rem;
-    }
 }

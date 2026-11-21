@@ -1,5 +1,6 @@
 import { Section } from '../../components/section/Section.jsx';
 import { Icon } from '../../components/icon/Icon.jsx';
+import { StaggerContainer, StaggerItem } from '../../components/animation/ScrollReveal.jsx';
 import { Preview } from './components/Preview.jsx';
 
 import { usePreview } from './hooks/usePreview.js';
@@ -50,33 +51,45 @@ const PROJECTS = [
 ];
 
 export const Projects = () => {
-    const { activePreview, cursorPosition, handlePreviewSelect, handlePreviewMovement, handlePreviewClear } = usePreview();
+    const { activePreview, selectedPreview, cursorPosition, handlePreviewSelect, handlePreviewMovement, handlePreviewClear, handlePreviewToggle, handlePreviewClose } = usePreview();
 
     return (
         <Section id="projects" title="01 / PROJECTS" header="Small projects. Real progress.">
             <div className="projects" onMouseMove={handlePreviewMovement} onMouseLeave={handlePreviewClear}>
-                <div className="projects__catalog">
+                <StaggerContainer className="projects__catalog" staggerDelay={0.2}>
                     {PROJECTS.map((project) => (
-                        <div className="project__catalog-item" key={project.id} onMouseEnter={(event) => handlePreviewSelect(event, project)}>
-                            <span>{project.index}</span>
+                        <StaggerItem
+                            className={`project__catalog-item${selectedPreview?.id === project.id ? ' --selected' : ''}`}
+                            key={project.id}
+                            onMouseEnter={(event) => handlePreviewSelect(event, project)}
+                        >
+                            <button
+                                type="button"
+                                className="project__details-trigger"
+                                aria-haspopup="dialog"
+                                aria-expanded={selectedPreview?.id === project.id}
+                                onClick={(event) => handlePreviewToggle(project, event)}
+                            >
+                                <span>{project.index}</span>
 
-                            <div className="item__content">
-                                <h3>{project.title}</h3>
-                                <p>{project.description}</p>
+                                <div className="item__content">
+                                    <h3>{project.title}</h3>
+                                    <p>{project.description}</p>
 
-                                <div className="item__content-stack">
-                                    <span>{project.stacks.join(' • ')}</span>
+                                    <div className="item__content-stack">
+                                        <span>{project.stacks.join(' • ')}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </button>
 
-                            <a href={project.link}>
+                            <a href={project.link} aria-label={`View ${project.title} on GitHub`} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()}>
                                 <Icon id="arrow-icon" />
                             </a>
-                        </div>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerContainer>
 
-                <Preview preview={activePreview} cursor={cursorPosition} />
+                <Preview preview={activePreview} cursor={cursorPosition} isSelected={Boolean(selectedPreview)} onClose={handlePreviewClose} />
             </div>
         </Section>
     );

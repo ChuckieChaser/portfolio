@@ -1,8 +1,4 @@
 .skills {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: flex-start; */
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: flex-start;

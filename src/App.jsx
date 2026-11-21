@@ -10,7 +10,9 @@ import { Contact } from './features/contact/Contact.jsx';
 const App = () => {
     return (
         <>
-            <div className="background"></div>
+            <div className="background" aria-hidden="true">
+                <div className="background__grid"></div>
+            </div>
 
             <TopBar />
 

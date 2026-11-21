@@ -1,22 +1,16 @@
 import { useEffect, useState } from 'react';
 
-const DEFAULT_ROOT_MARGIN = '-20% 0px -45% 0px';
-const DEFAULT_THRESHOLD = [0, 0.1, 0.25, 0.5, 0.75, 1];
 const DEFAULT_BOTTOM_TOLERANCE = 4;
+const ACTIVE_LINE_RATIO = 0.35;
 
 export const useActiveSection = (sectionIds, options = {}) => {
     const [activeSectionId, setActiveSectionId] = useState(sectionIds[0] ?? '');
-
-    const rootMargin = options.rootMargin ?? DEFAULT_ROOT_MARGIN;
-    const customThreshold = options.threshold;
     const bottomTolerance = options.bottomTolerance ?? DEFAULT_BOTTOM_TOLERANCE;
 
     useEffect(() => {
         if (!Array.isArray(sectionIds) || sectionIds.length === 0) {
             return undefined;
         }
-
-        const threshold = customThreshold ?? DEFAULT_THRESHOLD;
 
         const sectionElements = sectionIds.map((sectionId) => document.getElementById(sectionId)).filter(Boolean);
 
@@ -25,51 +19,52 @@ export const useActiveSection = (sectionIds, options = {}) => {
         }
 
         const lastSectionId = sectionElements[sectionElements.length - 1].id;
+        let animationFrameId = null;
 
-        const isAtBottom = () => {
-            const scrollPosition = window.scrollY + window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            return scrollPosition >= documentHeight - bottomTolerance;
-        };
+        const updateActiveSection = () => {
+            if (animationFrameId !== null) {
+                window.cancelAnimationFrame(animationFrameId);
+            }
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (isAtBottom()) {
+            animationFrameId = window.requestAnimationFrame(() => {
+                animationFrameId = null;
+
+                const scrollBottom = window.scrollY + window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                if (scrollBottom >= documentHeight - bottomTolerance) {
                     setActiveSectionId(lastSectionId);
                     return;
                 }
 
-                const visibleEntries = entries.filter((entry) => entry.isIntersecting).sort((firstEntry, secondEntry) => secondEntry.intersectionRatio - firstEntry.intersectionRatio);
+                const activationLine = window.innerHeight * ACTIVE_LINE_RATIO;
+                let nextActiveSectionId = sectionElements[0].id;
 
-                if (visibleEntries.length === 0) {
-                    return;
+                for (const sectionElement of sectionElements) {
+                    if (sectionElement.getBoundingClientRect().top > activationLine) {
+                        break;
+                    }
+
+                    nextActiveSectionId = sectionElement.id;
                 }
 
-                setActiveSectionId(visibleEntries[0].target.id);
-            },
-            {
-                rootMargin,
-                threshold,
-            }
-        );
-
-        const handleScroll = () => {
-            if (isAtBottom()) {
-                setActiveSectionId(lastSectionId);
-            }
+                setActiveSectionId(nextActiveSectionId);
+            });
         };
 
-        sectionElements.forEach((sectionElement) => {
-            observer.observe(sectionElement);
-        });
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        updateActiveSection();
+        window.addEventListener('scroll', updateActiveSection, { passive: true });
+        window.addEventListener('resize', updateActiveSection);
 
         return () => {
-            observer.disconnect();
-            window.removeEventListener('scroll', handleScroll);
+            if (animationFrameId !== null) {
+                window.cancelAnimationFrame(animationFrameId);
+            }
+
+            window.removeEventListener('scroll', updateActiveSection);
+            window.removeEventListener('resize', updateActiveSection);
         };
-    }, [sectionIds, rootMargin, customThreshold, bottomTolerance]);
+    }, [sectionIds, bottomTolerance]);
 
     return {
         activeSectionId,

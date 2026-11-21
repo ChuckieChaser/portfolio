@@ -1,4 +1,5 @@
 import { Section } from '../../components/section/Section.jsx';
+import { StaggerContainer, StaggerItem } from '../../components/animation/ScrollReveal.jsx';
 import './Skill.css';
 
 const SKILLS = [
@@ -37,9 +38,9 @@ const SKILLS = [
 export const Skills = () => {
     return (
         <Section id="skills" title="02 / SKILLS" header="A small, growing toolkit.">
-            <div className="skills">
+            <StaggerContainer className="skills">
                 {SKILLS.map((skill) => (
-                    <div className="skills__item" key={skill.id}>
+                    <StaggerItem className="skills__item" key={skill.id}>
                         <h4>
                             <sup>{skill.index}</sup>
                             {skill.category}
@@ -50,9 +51,9 @@ export const Skills = () => {
                                 <span key={stack}>{stack}</span>
                             ))}
                         </div>
-                    </div>
+                    </StaggerItem>
                 ))}
-            </div>
+            </StaggerContainer>
         </Section>
     );
 };

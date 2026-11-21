@@ -1,4 +1,5 @@
 import { Section } from '../../components/section/Section.jsx';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../../components/animation/ScrollReveal.jsx';
 import './Contact.css';
 
 const LINKS = [
@@ -26,42 +27,46 @@ export const Contact = () => {
     return (
         <Section id="contact" className="contact__section" title="04 / CONTACT" header="Let's start with a hello.">
             <div className="contact">
-                <div className="contact__email">
+                <ScrollReveal className="contact__email">
                     <p>Have a project, an opportunity, or a good question? I'd love to hear from you.</p>
 
                     <a href="mailto:avecilla.dev@gmail.com">
                         <span>avecilla.dev@gmail.com</span>
                     </a>
-                </div>
+                </ScrollReveal>
 
-                <div className="contact__me">
-                    <div className="contact__me-details">
+                <StaggerContainer className="contact__me">
+                    <StaggerItem className="contact__me-details">
                         <h4>AVECILLA, CARL RUSELLE</h4>
                         <p>Small steps. Thoughtful builds. Always a work in progress.</p>
-                    </div>
+                    </StaggerItem>
 
-                    <div className="contact__me-links">
+                    <StaggerContainer className="contact__me-links">
                         {LINKS.map((link) => (
-                            <div className="links-item" key={link.id}>
+                            <StaggerItem className="links-item" key={link.id}>
                                 <span>{link.name}</span>
 
-                                {link.items.map((item) => (
-                                    <a href={item.link} download={item.download} key={item.id} target="_blank" rel="noopener noreferrer">
-                                        <span>{item.name}</span>
-                                    </a>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                                {link.items.map((item) => {
+                                    const isExternal = item.link.startsWith('https://');
 
-                <div className="contact__footer">
+                                    return (
+                                        <a href={item.link} download={item.download} key={item.id} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
+                                            <span>{item.name}</span>
+                                        </a>
+                                    );
+                                })}
+                            </StaggerItem>
+                        ))}
+                    </StaggerContainer>
+                </StaggerContainer>
+
+                <ScrollReveal className="contact__footer">
                     <span>© 2026 Chuckie. Made with care, built to learn.</span>
 
                     <a href="#home">
                         <span>BACK TO TOP</span>
                     </a>
-                </div>
+                </ScrollReveal>
             </div>
         </Section>
     );
